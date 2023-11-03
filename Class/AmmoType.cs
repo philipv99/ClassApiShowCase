@@ -10,6 +10,9 @@ namespace ClassApiShowCase.Class
         public List<int> MagSizes { get; set; } // at list of 1 or more, and not containing negattive or zero
         public double AmmoPrice { get; set; } // over 0 
 
+        /// <summary>
+        /// int id, string AmmoName, string Cassing, List<![CDATA[<]]>int> double price
+        /// </summary>
         public AmmoType() : base() { }
 
         public override string ToString()
@@ -74,7 +77,7 @@ namespace ClassApiShowCase.Class
         {
             if (string.IsNullOrEmpty(Caseing)) throw new ArgumentNullException("AmmoType.Caseing is null or empty");
             if (Caseing.Length < 3) throw new ArgumentOutOfRangeException("AmmoType.Caseing is under 3");
-            if (Caseing.Length < 10) throw new ArgumentOutOfRangeException("AmmoType.Caseing is over 10");
+            if (Caseing.Length > 10) throw new ArgumentOutOfRangeException("AmmoType.Caseing is over 10");
         }
         private void ValideteAmmoPrice()
         {

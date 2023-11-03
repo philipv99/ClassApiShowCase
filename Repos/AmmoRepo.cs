@@ -16,6 +16,13 @@ namespace ClassApiShowCase.Repos
         #endregion
 
         #region constructor
+        /// <summary>
+        /// <inheritdoc cref="AmmoType()"/>
+        /// <para>
+        /// takes care of all CRUD for the class AmmoType
+        /// and keep track of all objects using a dictinary<![CDATA[<]]>string, AmmoType>
+        /// </para>
+        /// </summary>
         public AmmoRepo()
         {
             AmmoTypes = new Dictionary<string, AmmoType>
@@ -54,6 +61,13 @@ namespace ClassApiShowCase.Repos
             return newAmmo;
         }
 
+        private AmmoType AddNoId(AmmoType newAmmo)
+        {
+            IsNameOfAmmoInRepo(newAmmo);
+            newAmmo.Validate();
+            AmmoTypes.Add(newAmmo.AmmoName, newAmmo);
+            return newAmmo;
+        }
         #region gets
         /// <summary>
         /// gats all items in the repo 
@@ -113,11 +127,11 @@ namespace ClassApiShowCase.Repos
         /// the new object will take the old objects id. 
         /// </summary>
         /// <param name="key">string based key from the dictionary AmmoTypes</param>
-        /// <param name="AmmoToUpate">the new full made ammo opject to replace the old one</param>
+        /// <param name="AmmoToUpdate">the new full made ammo opject to replace the old one</param>
         /// <returns>returns the new object if the mothods secceds</returns>
-        public AmmoType Update(int id, AmmoType AmmoToUpate)
+        public AmmoType Update(int id, AmmoType AmmoToUpdate)
         {
-            return Update(GetSingleKey(id), AmmoToUpate);
+            return Update(GetSingleKey(id), AmmoToUpdate);
         }
 
         /// <summary>
@@ -125,14 +139,15 @@ namespace ClassApiShowCase.Repos
         /// the new object will take the old objects id. 
         /// </summary>
         /// <param name="key">string based key from the dictionary AmmoTypes</param>
-        /// <param name="AmmoToUpate">the new full made ammo opject to replace the old one</param>
+        /// <param name="AmmoToUpdate">the new full made ammo opject to replace the old one</param>
         /// <returns>returns the new object if the mothods secceds</returns>
-        public AmmoType Update(string key, AmmoType AmmoToUpate)
+        public AmmoType Update(string key, AmmoType AmmoToUpdate)
         {
-            AmmoToUpate.Validate();
-            AmmoToUpate.Id = AmmoTypes[key].Id;
-            AmmoTypes[key] = AmmoToUpate;
-            return AmmoToUpate;
+            AmmoToUpdate.Validate();
+            AmmoToUpdate.Id = AmmoTypes[key].Id;
+            AmmoTypes.Remove(key);
+            AddNoId(AmmoToUpdate);
+            return AmmoToUpdate;
         }
         #endregion
         #endregion
