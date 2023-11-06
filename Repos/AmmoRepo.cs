@@ -73,7 +73,7 @@ namespace ClassApiShowCase.Repos
         /// gats all items in the repo 
         /// </summary>
         /// <returns>a dictonary same is the one in the repo</returns>
-        public Dictionary<string, AmmoType> GetAll() => AmmoTypes;
+        public Dictionary<string, AmmoType> GetAll() => new Dictionary<string, AmmoType>(AmmoTypes);
 
         /// <summary>
         /// takes a int id = to a id in AmmoType.id 
